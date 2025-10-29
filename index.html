@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Premium Tech Products</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">TechStore</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#" onclick="showHome()" class="nav-link">Home</a>
+                    <a href="#" onclick="showCategories()" class="nav-link">Shop</a>
+                    <a href="#" onclick="showCart()" class="nav-link cart-link">
+                        <span>Cart</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Home Page -->
+        <div id="homePage" class="page active">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Welcome to TechStore</h1>
+                    <p class="hero-subtitle">Discover cutting-edge technology at unbeatable prices</p>
+                    <button class="btn btn-primary" onclick="showCategories()">Start Shopping</button>
+                </div>
+                <div class="hero-background"></div>
+            </section>
+
+            <section class="featured-categories">
+                <h2>Featured Categories</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="selectCategory('Laptops')">
+                        <div class="category-icon">💻</div>
+                        <h3>Laptops</h3>
+                    </div>
+                    <div class="category-card" onclick="selectCategory('Mobiles')">
+                        <div class="category-icon">📱</div>
+                        <h3>Mobiles</h3>
+                    </div>
+                    <div class="category-card" onclick="selectCategory('Tablets')">
+                        <div class="category-icon">📲</div>
+                        <h3>Tablets</h3>
+                    </div>
+                    <div class="category-card" onclick="selectCategory('Monitors')">
+                        <div class="category-icon">🖥️</div>
+                        <h3>Monitors</h3>
+                    </div>
+                    <div class="category-card" onclick="selectCategory('Mice')">
+                        <div class="category-icon">🖱️</div>
+                        <h3>Mice</h3>
+                    </div>
+                    <div class="category-card" onclick="selectCategory('Headsets')">
+                        <div class="category-icon">🎧</div>
+                        <h3>Headsets</h3>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Categories Page -->
+        <div id="categoriesPage" class="page">
+            <div class="page-header">
+                <button class="btn-back" onclick="showHome()">← Back</button>
+                <h1 id="categoryTitle">Categories</h1>
+            </div>
+            <div class="brands-grid" id="brandsContainer"></div>
+        </div>
+
+        <!-- Products Page -->
+        <div id="productsPage" class="page">
+            <div class="page-header">
+                <button class="btn-back" onclick="showCategories()">← Back</button>
+                <h1 id="brandTitle">Products</h1>
+            </div>
+            <div class="products-grid" id="productsContainer"></div>
+        </div>
+
+        <!-- Cart Page -->
+        <div id="cartPage" class="page">
+            <div class="page-header">
+                <button class="btn-back" onclick="showHome()">← Back</button>
+                <h1>Shopping Cart</h1>
+            </div>
+            <div class="cart-container">
+                <div class="cart-items" id="cartItemsContainer"></div>
+                <div class="cart-summary">
+                    <div class="coupon-section">
+                        <input type="text" id="couponInput" placeholder="Enter coupon code" class="coupon-input">
+                        <button class="btn btn-secondary" onclick="applyCoupon()">Apply</button>
+                    </div>
+                    <div class="summary-item">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">₹0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Discount:</span>
+                        <span id="discount">₹0</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total:</span>
+                        <span id="total">₹0</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="proceedToCheckout()" id="checkoutBtn">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Page -->
+        <div id="checkoutPage" class="page">
+            <div class="page-header">
+                <button class="btn-back" onclick="showCart()">← Back</button>
+                <h1>Checkout</h1>
+            </div>
+            <div class="checkout-container">
+                <form class="checkout-form" onsubmit="processPayment(event)">
+                    <div class="form-section">
+                        <h3>Delivery Address</h3>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea id="address" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Pin Code</label>
+                            <input type="text" id="pincode" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Payment Method</h3>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="COD" checked>
+                                <span>Cash on Delivery (COD)</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="UPI">
+                                <span>UPI Payment</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="Card">
+                                <span>Credit/Debit Card</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div class="summary-item">
+                            <span>Total Amount:</span>
+                            <span id="checkoutTotal">₹0</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Complete Payment</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Thank You Page -->
+        <div id="thankYouPage" class="page">
+            <div class="thank-you-container">
+                <div class="success-animation">
+                    <div class="checkmark">✓</div>
+                </div>
+                <h1>Thank You for Your Order!</h1>
+                <p class="order-message">Your order has been successfully placed</p>
+                
+                <div class="order-details">
+                    <div class="detail-item">
+                        <span class="label">Order ID:</span>
+                        <span class="value" id="orderId"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Total Amount:</span>
+                        <span class="value" id="orderAmount"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Payment Method:</span>
+                        <span class="value" id="orderPayment"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Delivery Address:</span>
+                        <span class="value" id="orderAddress"></span>
+                    </div>
+                </div>
+
+                <div class="order-items">
+                    <h3>Items Ordered</h3>
+                    <div id="orderItemsList"></div>
+                </div>
+
+                <button class="btn btn-primary" onclick="showHome()">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
